@@ -4,6 +4,11 @@ import (
 	"final-project-mygram/controllers"
 	"final-project-mygram/middlewares"
 
+	_ "final-project-mygram/docs"
+
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -62,6 +67,8 @@ func StartApp() *gin.Engine {
 
 		socialMediaRouter.DELETE("/delete/:socialMediaID", middlewares.SocialMediaAuthorization(), controllers.DeleteSocialMedia)
 	}
+
+	routers.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	return routers
 }

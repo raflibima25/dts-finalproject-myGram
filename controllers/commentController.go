@@ -12,6 +12,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// CreateComment godoc
+// @Summary Create Comment
+// @Description Post a new Comment and add query parameter photo_id for comment
+// @Tags Comment
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param photo_id query integer true "Photo for comment"
+// @Param CreateComment body models.RequestComment true "Create comment"
+// @Success 201 {object} models.Comment
+// @Failure 400 {object} models.ResponseFailed
+// @Failure 401 {object} models.ResponseFailedUnauthorized
+// @Failure 404 {object} models.ResponseFailed
+// @Router /comment/create [post]
 func CreateComment(ctx *gin.Context) {
 	var comment models.Comment
 	var photo models.Photo
@@ -64,6 +78,19 @@ func CreateComment(ctx *gin.Context) {
 
 }
 
+// GetAllComment godoc
+// @Summary Get details of All comment
+// @Description Get details of all comment or add query parameter photo_id for all comment from photo_id
+// @Tags Comment
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param photo_id query integer false "Get all comment from photo_id"
+// @Success 200 {object} models.Comment
+// @Failure 400 {object} models.ResponseFailed
+// @Failure 401 {object} models.ResponseFailedUnauthorized
+// @Failure 404 {object} models.ResponseFailed
+// @Router /comment/getAll [get]
 func GetAllComent(ctx *gin.Context) {
 	var comment []models.Comment
 	var photo models.Photo
@@ -119,6 +146,19 @@ func GetAllComent(ctx *gin.Context) {
 	})
 }
 
+// GetOneComment godoc
+// @Summary Get details for a given commentID
+// @Description Get details of comment corresponding to the input commentID
+// @Tags Comment
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param commentID path integer true "ID of the photo"
+// @Success 200 {object} models.Comment
+// @Failure 400 {object} models.ResponseFailed
+// @Failure 401 {object} models.ResponseFailedUnauthorized
+// @Failure 404 {object} models.ResponseFailed
+// @Router /comment/getOne/{commentID} [get]
 func GetOneComment(ctx *gin.Context) {
 	var comment models.Comment
 
@@ -143,6 +183,20 @@ func GetOneComment(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, comment)
 }
 
+// UpdateComment godoc
+// @Summary Updated data comment with commentID
+// @Description Update data comment by id
+// @Tags Comment
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param commentID path integer true "commentID of the data comment to be updated"
+// @Param UpdatedComment body models.RequestComment true "Updated comment"
+// @Success 200 {object} models.Comment
+// @Failure 400 {object} models.ResponseFailed
+// @Failure 401 {object} models.ResponseFailedUnauthorized
+// @Failure 404 {object} models.ResponseFailed
+// @Router /comment/update/{commentID} [put]
 func UpdateComment(ctx *gin.Context) {
 	var comment, findComment models.Comment
 
@@ -192,6 +246,19 @@ func UpdateComment(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, comment)
 }
 
+// DeleteComment godoc
+// @Summary Delete data comment with commentID
+// @Description Delete data comment by id
+// @Tags Comment
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Param commentID path integer true "commentID of the data comment to be deleted"
+// @Success 200 {object} models.Comment
+// @Failure 400 {object} models.ResponseFailed
+// @Failure 401 {object} models.ResponseFailedUnauthorized
+// @Failure 404 {object} models.ResponseFailed
+// @Router /comment/delete/{commentID} [delete]
 func DeleteComent(ctx *gin.Context) {
 	var comment models.Comment
 
